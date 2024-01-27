@@ -1,10 +1,10 @@
-import { createSlice, PayloadAction  } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UserState {
     currentUser: any;
     error: string | null;
     loading: boolean;
-  }
+}
 
 const initialState: UserState = {
     currentUser: null,
@@ -17,21 +17,34 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         signInStart: (state) => {
-          state.loading = true;
-          state.error = null;
+            state.loading = true;
+            state.error = null;
         },
         signInSuccess: (state, action: PayloadAction<any>) => {
-          state.currentUser = action.payload;
-          state.loading = false;
-          state.error = null;
+            state.currentUser = action.payload;
+            state.loading = false;
+            state.error = null;
         },
         signInFailure: (state, action: PayloadAction<string>) => {
-          state.loading = false;
-          state.error = action.payload;
+            state.loading = false;
+            state.error = action.payload;
         },
+        updateStart: (state) => {
+            state.loading = true,
+            state.error = null
+        },
+        updateSuccess: (state, action: PayloadAction<any>) => {
+            state.currentUser = action.payload;
+            state.loading = false,
+            state.error = null
+        },
+        updateFailure: (state, action: PayloadAction<string>) => {
+            state.loading = false;
+            state.error = action.payload;
+        }
     }
 })
 
-export const {signInStart, signInSuccess, signInFailure} = userSlice.actions
+export const { signInStart, signInSuccess, signInFailure, updateFailure, updateStart, updateSuccess } = userSlice.actions
 
 export default userSlice.reducer;

@@ -8,6 +8,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import { updateStart, updateFailure, updateSuccess, deleteUserFailure, deleteUserStart, deleteUserSuccess, signoutSuccess } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 interface RootState {
     user: {
@@ -32,7 +33,7 @@ interface RootState {
 
 const DashProfile = () => {
 
-    const {currentUser, error} = useSelector((state: RootState) => state.user);
+    const {currentUser, error, loading} = useSelector((state: RootState) => state.user);
     const dispatch = useDispatch()
 
     const [imageFile, setImageFile] = useState<File | null>(null);
@@ -266,9 +267,24 @@ const DashProfile = () => {
                     type="submit" 
                     gradientDuoTone='purpleToBlue'
                     outline
+                    disabled={loading || imageFileUploading}
                 >
-                    Update
+                    {loading ? 'Loading...' : 'Update'}
                 </Button>
+
+                {
+                    currentUser.isAdmin && (
+                        <Link to={'/create-post'}>
+                            <Button
+                                type="button"
+                                gradientDuoTone='purpleToPink'
+                                className="w-full"
+                            >
+                                Create a post
+                            </Button>
+                        </Link>
+                    )
+                }
             </form>
 
             <div className='text-red-500 flex justify-between mt-5'>

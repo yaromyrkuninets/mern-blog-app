@@ -22,14 +22,14 @@ interface RootState {
       error: string | null;
       loading: boolean;
     };
-  }
+}
   
   interface FormData {
     username?: string;
     email?: string;
     password?: string;
     profilePicture?: string;
-  }
+}
 
 const DashProfile = () => {
 

@@ -64,30 +64,21 @@ const DashUsers = () => {
         }
     }
 
-    // const handleDeleteUser = async () => {
-    //     setShowModal(false);
-    //     try {
-    //         const res = await fetch(`/api/user/deleteuser/${userIdToDelete}/${currentUser._id}`,
-    //             {
-    //                 method: 'DELETE',
-    //             }
-    //         )
-    //         const data = await res.json();
-
-    //         if (!res.ok) {
-    //             console.log(data.message);
-    //         } else {
-    //             setUsers((prev) =>
-    //                 prev.filter((post) => post._id !== userIdToDelete)
-    //             );
-    //         }
-    //     } catch (error: any) {
-    //         console.log(error.message);
-    //     }
-    // }
-
-    const handleDeleteUser = () => {
-
+    const handleDeleteUser = async () => {
+        try {
+                const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
+                    method: 'DELETE',
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
+                    setShowModal(false);
+                } else {
+                    console.log(data.message);
+                }
+            } catch (error: any) {
+                console.log(error.message);
+            }
     }
 
     return (

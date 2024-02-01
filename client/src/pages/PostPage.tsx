@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { Spinner, Button } from "flowbite-react";
 import CallToAction from "../components/CallToAction";
 import CommentSection from "../components/CommentSection";
+import PostCard from "../components/PostCard";
 
 interface Post {
     _id: string;
@@ -57,6 +58,25 @@ const PostPage = () => {
         fetchPost();
     }, [postSlug]);
 
+    useEffect(() => {
+        try {
+            const fetchResentPost = async () => {
+                
+                const res = await fetch(`/api/post/getposts?limit=3`);
+                const data: ApiResponse = await res.json();
+
+                if (res.ok) {
+                    setRecentPosts(data.posts);
+                }
+            }
+
+            fetchResentPost()
+        } catch (error: any) {
+            console.log(error.message);
+        }
+
+    }, []);
+
     if (loading)
         return (
             <div className='flex justify-center items-center min-h-screen'>
@@ -104,6 +124,17 @@ const PostPage = () => {
 
             <CommentSection postId={post!._id}/>
 
+            <div className='flex flex-col justify-center items-center mb-5'>
+                <h1 className='text-xl mt-5'>
+                    Recent articles
+                </h1>
+
+                <div className='flex flex-wrap gap-5 mt-5 justify-center'>
+                    {
+                        recentPosts && recentPosts.map((post) => <PostCard key={post._id} post={post} />)
+                    }
+                </div>
+            </div>
         </main>
     )
 }

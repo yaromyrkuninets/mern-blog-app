@@ -17,6 +17,7 @@ interface CommentProps {
     comment: CommentData;
     onLike: (commentId: string) => Promise<void>;
     onEdit: (comment: CommentData, editedContent: string) => Promise<void>;
+    onDelete: (commentId: string) => void;
 }
 
 interface User {
@@ -39,7 +40,7 @@ interface RootState {
     };
 }
 
-const Comment: React.FC<CommentProps> = ({ comment, onLike, onEdit }) => {
+const Comment: React.FC<CommentProps> = ({ comment, onLike, onEdit, onDelete }) => {
 
     const [user, setUser] = useState<User | null>(null);
     const [isEditing, setIsEditing] = useState(false);
@@ -158,9 +159,15 @@ const Comment: React.FC<CommentProps> = ({ comment, onLike, onEdit }) => {
 
                             {
                                 currentUser && (currentUser._id === comment.userId || currentUser.isAdmin) && (
-                                    <button onClick={handleEdit} type="button" className='text-gray-400 hover:text-blue-500'>
-                                        Edit
-                                    </button>
+                                    <>
+                                        <button onClick={handleEdit} type="button" className='text-gray-400 hover:text-blue-500'>
+                                            Edit
+                                        </button>
+                                        
+                                        <button onClick={() => onDelete(comment._id)} type="button" className='text-gray-400 hover:text-red-500'>
+                                            Delete
+                                        </button>
+                                    </>
                                 )
                             }
                         </div>

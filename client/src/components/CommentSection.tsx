@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Comment from "./Comment";
+import { useNavigate } from "react-router-dom";
 
 interface CommentSectionProps {
     postId: string;
@@ -39,7 +40,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({postId}) => {
 
     const {currentUser} = useSelector((state: RootState) => state.user);
 
-    console.log(comments);
+    const navigate = useNavigate()
     
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -90,6 +91,34 @@ const CommentSection: React.FC<CommentSectionProps> = ({postId}) => {
 
         getComments();
     }, [postId]);
+
+    const handleLike = async (commentId: string) => {
+        try {
+            if (!currentUser) {
+                navigate('/sign-in')
+                return;
+            }
+
+            const res = await fetch(`/api/comment/likeComment/${commentId}`, {
+                method: 'PUT',
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                setComments(
+                    comments.map((comment) =>
+                        comment._id === commentId ? {
+                            ...comment,
+                            likes: data.likes,
+                            numberOfLikes: data.likes.length,
+                        } : comment
+                    )
+                );
+            }
+        } catch (error: any) {
+            console.log(error.message);
+        }
+    }
 
     return (
         <div className='max-w-2xl mx-auto w-full p-3'>
@@ -158,6 +187,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({postId}) => {
                         <Comment 
                             key={comment._id}
                             comment={comment}
+                            onLike = {handleLike}
                         />
                     ))}
                 </>

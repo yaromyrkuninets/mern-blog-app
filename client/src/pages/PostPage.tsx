@@ -22,7 +22,6 @@ const PostPage = () => {
 
     const { postSlug } = useParams<{ postSlug: string }>();
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
     const [post, setPost] = useState<Post | null>(null);
     const [recentPosts, setRecentPosts] = useState<Post[] | null>(null);
 
@@ -38,7 +37,6 @@ const PostPage = () => {
                 const data: ApiResponse = await res.json();
 
                 if (!res.ok) {
-                    setError(true);
                     setLoading(false);
                     return;
                 }
@@ -46,11 +44,9 @@ const PostPage = () => {
                 if (res.ok) {
                     setPost(data.posts[0]);
                     setLoading(false);
-                    setError(false);
                 }
 
                 } catch (error) {
-                    setError(true);
                     setLoading(false);
                 }
         };

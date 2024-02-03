@@ -2,7 +2,7 @@ import { GoogleAuthProvider, signInWithPopup, UserCredential, getAuth, User  } f
 import { Button } from 'flowbite-react';
 import { AiFillGoogleCircle } from 'react-icons/ai';
 import { app } from '../firebase';
-import { UseDispatch, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { signInSuccess } from '../redux/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 

@@ -84,7 +84,7 @@ const UpdatePost = () => {
                     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                     setImageUploadProgress(progress.toFixed(0))
                 },
-                (error) => {
+                () => {
                     setImageUploadError('Image upload failed');
                     setImageUploadProgress(null)
                 },

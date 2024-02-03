@@ -14,9 +14,6 @@ interface Post {
 export default function Home() {
   const [posts, setPosts] = useState<Post[]>([]);
 
-  console.log(posts);
-  
-
   useEffect(() => {
     const fetchPosts = async () => {
       const res = await fetch('/api/post/getposts');

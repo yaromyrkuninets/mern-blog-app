@@ -1,31 +1,36 @@
 export default function About() {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="max-w-2xl mx-auto p-3 text-center">
-        <div>
-          <h1 className="text-3xl font font-semibold text-center my-7">
+    <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
+      <div className="max-w-4xl mx-auto p-6 grid md:grid-cols-2 gap-8 items-center">
+        <div className="w-full">
+          <img
+            src="https://odessa-journal.com/public/storage/uploads/news/21043/21043.jpg"
+            alt="Military tech illustration"
+            className="rounded-lg shadow-lg"
+          />
+        </div>
+
+        <div className="text-center md:text-left">
+          <h1 className="text-3xl font-semibold text-[#4B5320] dark:text-gray-100 mb-6">
             About Mil Blog
           </h1>
-          <div className="text-md text-gray-500 flex flex-col gap-6">
+          <div className="text-base text-gray-600 dark:text-gray-300 flex flex-col gap-6 leading-relaxed">
             <p>
-              Welcome to MilBlog! This blog was created by Yaromyr Kuninets as a
-              personal project to share his thoughts and ideas with the world.
-              Yaromyr is a passionate developer who loves to write about
-              Milnology, coding, and everything in between.
+              <span className="font-medium text-[#4B5320]">Mil Blog</span> is a
+              digital space where military thinking meets modern technology. It
+              explores the connection between software, defense, and real-world
+              resilience.
             </p>
-
             <p>
-              On this blog, you'll find weekly articles and tutorials on topics
-              such as web development, software engineering, and programming
-              languages. MilBlog always learning and exploring new Milnologies,
-              so be sure to check back often for new content!
+              The blog covers a range of topics — from full-stack web
+              development to how modern technologies are applied in military
+              contexts, infrastructure, and tactical scenarios.
             </p>
-
             <p>
-              We encourage you to leave comments on our posts and engage with
-              other readers. You can like other people's comments and reply to
-              them as well. We believe that a community of learners can help
-              each other grow and improve.
+              Whether you're a developer, strategist, or someone passionate
+              about defense innovation — you're welcome here. Engage with the
+              content, share your thoughts, and be part of a mission-driven
+              community.
             </p>
           </div>
         </div>

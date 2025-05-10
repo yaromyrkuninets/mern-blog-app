@@ -162,9 +162,12 @@ const UpdatePost = () => {
             value={formData.category}
           >
             <option value="uncategorized">Select a category</option>
-            <option value="javascript">JavaScript</option>
-            <option value="reactjs">React.js</option>
-            <option value="nextjs">Next.js</option>
+            <option value="military-aid">Military Aid & Weapons</option>
+            <option value="leadership">Leadership & Strategy</option>
+            <option value="defense-policy">Defense Policy & Reforms</option>
+            <option value="global-security">
+              Global Security & Geopolitics
+            </option>
           </Select>
         </div>
 

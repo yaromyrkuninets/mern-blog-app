@@ -102,7 +102,7 @@ const CreatePost = () => {
     }
 
     try {
-      const prompt = `Write a blog post titled "${formData.title}" in the context of "${formData.category}" for a military audience.`;
+      const prompt = `Write a short and concise blog post (no more than 2 paragraphs) titled "${formData.title}" in the context of "${formData.category}" for a military audience. Keep it under 300 words.`;
 
       const response = await fetch(
         "https://api.together.xyz/v1/chat/completions",

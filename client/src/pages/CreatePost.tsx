@@ -95,6 +95,54 @@ const CreatePost = () => {
     }
   };
 
+  const handleGenerateAIContent = async () => {
+    if (!formData.title || !formData.category) {
+      alert("Please enter title and category first.");
+      return;
+    }
+
+    try {
+      const prompt = `Write a blog post titled "${formData.title}" in the context of "${formData.category}" for a military audience.`;
+
+      const response = await fetch(
+        "https://api.together.xyz/v1/chat/completions",
+        {
+          method: "POST",
+          headers: {
+            Authorization:
+              "Bearer 769d21b8ec6579c65f79ac9b5f18aafca289dfc8bfab82ca54a5b1c549ed0eea",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            model: "mistralai/Mixtral-8x7B-Instruct-v0.1",
+            messages: [
+              {
+                role: "user",
+                content: prompt,
+              },
+            ],
+            max_tokens: 300,
+            temperature: 0.7,
+          }),
+        }
+      );
+
+      const data = await response.json();
+      console.log("TogetherAI response:", data);
+
+      const generatedText = data?.choices?.[0]?.message?.content;
+      if (!generatedText) {
+        alert("Failed to generate content.");
+        return;
+      }
+
+      setFormData((prev) => ({ ...prev, content: generatedText }));
+    } catch (error) {
+      console.error("AI error", error);
+      alert("Failed to generate content.");
+    }
+  };
+
   return (
     <div className="p-3 max-w-3xl mx-auto min-h-screen">
       <h1 className="text-center text-3xl my-7 font-semibold">Create a post</h1>
@@ -124,6 +172,13 @@ const CreatePost = () => {
               Global Security & Geopolitics
             </option>
           </Select>
+          <Button
+            type="button"
+            onClick={handleGenerateAIContent}
+            className="bg-blue-700 text-white self-end"
+          >
+            Generate with AI
+          </Button>
         </div>
 
         <div className="flex gap-4 items-center justify-between border-4 border-#4B5320-500 border-dotted p-3">
@@ -166,6 +221,7 @@ const CreatePost = () => {
           theme="snow"
           placeholder="Write something..."
           className="h-72 mb-12"
+          value={formData.content || ""}
           onChange={(value) => {
             setFormData({ ...formData, content: value });
           }}

@@ -102,8 +102,7 @@ const CreatePost = () => {
     }
 
     try {
-      const prompt = `Write a short and concise blog post (no more than 2 paragraphs) titled "${formData.title}" in the context of "${formData.category}" for a military audience. Keep it under 300 words.`;
-
+      const prompt = `Write a short and concise blog post (no more than 2 paragraphs) titled "${formData.title}" in the context of "${formData.category}" for a military audience. Return the result as HTML using <p> for paragraphs and <strong>/<ul>/<li> when needed.`;
       const response = await fetch(
         "https://api.together.xyz/v1/chat/completions",
         {
@@ -172,13 +171,15 @@ const CreatePost = () => {
               Global Security & Geopolitics
             </option>
           </Select>
-          <Button
-            type="button"
-            onClick={handleGenerateAIContent}
-            className="bg-blue-700 text-white self-end"
-          >
-            Generate with AI
-          </Button>
+          <div>
+            <Button
+              type="button"
+              onClick={handleGenerateAIContent}
+              className="bg-gradient-to-r from-[#4B5320] via-[#556B2F] to-[#8B8C7A] text-white"
+            >
+              Generate with AI
+            </Button>
+          </div>
         </div>
 
         <div className="flex gap-4 items-center justify-between border-4 border-#4B5320-500 border-dotted p-3">
